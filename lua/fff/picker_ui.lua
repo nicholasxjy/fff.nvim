@@ -914,8 +914,7 @@ function M.render_list()
             )
           end
         end
-        print(line_content)
-        print(M.state.query)
+
         local icon_match = line_content:match('^%S+')
         if icon_match and #filename > 0 and #dir_path > 0 then
           local prefix_len = #icon_match + 1 + #filename + 1
@@ -962,6 +961,25 @@ function M.render_list()
             sign_hl_group = final_border_hl ~= '' and final_border_hl or M.state.config.hl.active_file,
             priority = 1000,
           })
+        end
+
+        -- add highlight for query
+        local start_pos = 1
+        while true do
+          local match_start, match_end = string.find(line_content, M.state.query, start_pos)
+          if match_start then
+            vim.api.nvim_buf_add_highlight(
+              M.state.list_buf,
+              M.state.ns_id,
+              config.hl.matched or 'Special',
+              i - 1,
+              match_start - 1,
+              match_end
+            )
+            start_pos = match_end + 1
+          else
+            break
+          end
         end
       end
     end
