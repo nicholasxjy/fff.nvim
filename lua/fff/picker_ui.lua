@@ -914,14 +914,15 @@ function M.render_list()
             )
           end
         end
-
+        vim.inspect(line_content)
+        vim.inspect(M.state.query)
         local icon_match = line_content:match('^%S+')
         if icon_match and #filename > 0 and #dir_path > 0 then
           local prefix_len = #icon_match + 1 + #filename + 1
           vim.api.nvim_buf_add_highlight(
             M.state.list_buf,
             M.state.ns_id,
-            config.hl.matched,
+            config.hl.dir_path or 'Comment',
             line_idx - 1,
             prefix_len,
             prefix_len + #dir_path

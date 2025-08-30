@@ -161,9 +161,9 @@ local function init()
     },
     hl = {
       border = 'FloatBorder',
-      normal = 'Normal',
       cursor = 'CursorLine',
       matched = 'IncSearch',
+      dir_path = 'Comment',
       title = 'Title',
       prompt = 'Question',
       active_file = 'Visual',
