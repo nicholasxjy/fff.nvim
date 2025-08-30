@@ -266,6 +266,9 @@ M.state = {
 
 function M.create_ui()
   local config = M.state.config
+  if config == nil then vim.notify('no config', vim.log.levels.INFO) end
+
+  local ui = config.ui
 
   if not M.state.ns_id then M.state.ns_id = vim.api.nvim_create_namespace('fff_picker_status') end
 
@@ -350,8 +353,8 @@ function M.create_ui()
     height = layout.list_height,
     col = layout.list_col,
     row = layout.list_row,
-    border = 'single',
-    style = 'minimal',
+    border = ui.list.border,
+    style = ui.list.style,
   }
 
   local title = ' ' .. (M.state.config.title or 'FFFiles') .. ' '
@@ -371,8 +374,8 @@ function M.create_ui()
       height = layout.file_info.height,
       col = layout.file_info.col,
       row = layout.file_info.row,
-      border = 'single',
-      style = 'minimal',
+      border = ui.file_info.border,
+      style = ui.file_info.style,
       title = ' File Info ',
       title_pos = 'left',
     })
@@ -388,8 +391,8 @@ function M.create_ui()
       height = layout.preview.height,
       col = layout.preview.col,
       row = layout.preview.row,
-      border = 'single',
-      style = 'minimal',
+      border = ui.preview.border,
+      style = ui.preview.style,
       title = ' Preview ',
       title_pos = 'left',
     })
@@ -402,8 +405,8 @@ function M.create_ui()
     height = 1,
     col = layout.input_col,
     row = layout.input_row,
-    border = 'single',
-    style = 'minimal',
+    border = ui.input.border,
+    style = ui.input.style,
   }
 
   -- Add title if prompt is at top - title appears above the prompt
@@ -465,14 +468,13 @@ end
 
 --- Setup window options
 function M.setup_windows()
-  local hl = M.state.config.hl
-
   vim.api.nvim_win_set_option(M.state.input_win, 'wrap', false)
   vim.api.nvim_win_set_option(M.state.input_win, 'cursorline', false)
   vim.api.nvim_win_set_option(M.state.input_win, 'number', false)
   vim.api.nvim_win_set_option(M.state.input_win, 'relativenumber', false)
   vim.api.nvim_win_set_option(M.state.input_win, 'signcolumn', 'no')
   vim.api.nvim_win_set_option(M.state.input_win, 'foldcolumn', '0')
+  vim.api.nvim_win_set_option(M.state.input_win, 'winhighlight', 'Normal:NormalFloat,FloatBorder:FloatBorder')
 
   vim.api.nvim_win_set_option(M.state.list_win, 'wrap', false)
   vim.api.nvim_win_set_option(M.state.list_win, 'cursorline', false)
@@ -480,6 +482,7 @@ function M.setup_windows()
   vim.api.nvim_win_set_option(M.state.list_win, 'relativenumber', false)
   vim.api.nvim_win_set_option(M.state.list_win, 'signcolumn', 'yes:1') -- Enable signcolumn for git status borders
   vim.api.nvim_win_set_option(M.state.list_win, 'foldcolumn', '0')
+  vim.api.nvim_win_set_option(M.state.list_win, 'winhighlight', 'Normal:NormalFloat,FloatBorder:FloatBorder')
 
   if M.enabled_preview() then
     vim.api.nvim_win_set_option(M.state.preview_win, 'wrap', false)
@@ -488,6 +491,7 @@ function M.setup_windows()
     vim.api.nvim_win_set_option(M.state.preview_win, 'relativenumber', false)
     vim.api.nvim_win_set_option(M.state.preview_win, 'signcolumn', 'no')
     vim.api.nvim_win_set_option(M.state.preview_win, 'foldcolumn', '0')
+    vim.api.nvim_win_set_option(M.state.preview_win, 'winhighlight', 'Normal:NormalFloat,FloatBorder:FloatBorder')
   end
 end
 

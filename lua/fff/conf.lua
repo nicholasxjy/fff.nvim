@@ -129,6 +129,24 @@ local function init()
         text = { wrap_lines = true },
       },
     },
+    ui = {
+      list = {
+        border = 'single',
+        style = 'minimal',
+      },
+      preview = {
+        border = 'single',
+        style = 'minimal',
+      },
+      input = {
+        border = 'single',
+        style = 'minimal',
+      },
+      file_info = {
+        border = 'single',
+        style = 'minimal',
+      },
+    },
     keymaps = {
       close = '<Esc>',
       select = '<CR>',
