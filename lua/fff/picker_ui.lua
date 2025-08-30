@@ -914,8 +914,8 @@ function M.render_list()
             )
           end
         end
-        vim.inspect(line_content)
-        vim.inspect(M.state.query)
+        print(line_content)
+        print(M.state.query)
         local icon_match = line_content:match('^%S+')
         if icon_match and #filename > 0 and #dir_path > 0 then
           local prefix_len = #icon_match + 1 + #filename + 1
