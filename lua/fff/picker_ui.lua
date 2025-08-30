@@ -966,13 +966,16 @@ function M.render_list()
         -- add highlight for query
         local start_pos = 1
         while true do
+          print(line_content)
+          print(M.state.query)
           local match_start, match_end = string.find(line_content, M.state.query, start_pos)
+          print(match_start, match_end)
           if match_start then
             vim.api.nvim_buf_add_highlight(
               M.state.list_buf,
               M.state.ns_id,
               config.hl.matched or 'Special',
-              i - 1,
+              line_idx - 1,
               match_start - 1,
               match_end
             )
