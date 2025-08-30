@@ -921,7 +921,7 @@ function M.render_list()
           vim.api.nvim_buf_add_highlight(
             M.state.list_buf,
             M.state.ns_id,
-            'Comment',
+            config.hl.matched,
             line_idx - 1,
             prefix_len,
             prefix_len + #dir_path
