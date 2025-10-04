@@ -1009,7 +1009,7 @@ function M.render_list()
           })
         end
 
-        local match_start, match_end = string.find(line_content, M.state.query, 1)
+        local match_start, match_end = line_content:lower():find(M.state.query:lower(), 1, true)
         if match_start and match_end then
           vim.api.nvim_buf_add_highlight(
             M.state.list_buf,
